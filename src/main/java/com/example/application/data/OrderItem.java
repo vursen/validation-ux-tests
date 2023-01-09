@@ -33,7 +33,7 @@ public class OrderItem {
         return this.price;
     }
 
-    public void setTitle(Double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

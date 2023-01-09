@@ -32,7 +32,6 @@ public class PhoneField extends CustomField<String> {
         numberField = new TextField();
         numberField.setWidth("75%");
         numberField.setPattern("[\\d]+");
-        numberField.setHelperText("Enter your phone number in digits");
         layout.add(numberField);
 
         add(layout);

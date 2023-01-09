@@ -16,6 +16,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.data.binder.Binder;
@@ -72,12 +73,12 @@ public class CreateOrderView extends Div {
     }
 
     private void addUserForm() {
-        userForm = new UserForm(binder, order.getUser());
+        userForm = new UserForm(binder);
         add(new H2("User"), userForm);
     }
 
     private void addItemList() {
-        add(new H2("Items"), new ItemList());
+        add(new H2("Items"), new ItemList(binder));
     }
 
     private void addDeliveryForm() {

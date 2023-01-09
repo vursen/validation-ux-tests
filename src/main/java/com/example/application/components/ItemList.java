@@ -14,14 +14,18 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class ItemList extends VerticalLayout {
-    public ItemList() {
-        // for (OrderItem item : binder.getBean().getItems()) {
-        //     addItem(item);
-        //     add(new Hr());
-        // }
+    private Binder<Order> binder;
 
-        // setAlignItems(Alignment.STRETCH);
-        // setPadding(false);
+    public ItemList(Binder<Order> binder) {
+        this.binder = binder;
+
+        for (OrderItem item : binder.getBean().getItems()) {
+            addItem(item);
+            add(new Hr());
+        }
+
+        setPadding(false);
+        setAlignItems(Alignment.STRETCH);
     }
 
     private void addItem(OrderItem item) {
@@ -43,6 +47,7 @@ public class ItemList extends VerticalLayout {
         price.setMin(1);
         price.setPrefixComponent(new Div(new Text("€")));
         price.addClassNames(LumoUtility.Padding.Top.NONE);
+        binder.forField(price).asRequired().bind(order -> item.getPrice(), (order, value) -> item.setPrice(value));
         layout.add(price);
 
         IntegerField quantity = new IntegerField("Quantity");
@@ -51,6 +56,7 @@ public class ItemList extends VerticalLayout {
         quantity.setMin(1);
         quantity.setWidth("112px");
         quantity.addClassNames(LumoUtility.Padding.Top.NONE);
+        binder.forField(quantity).asRequired().bind(order -> item.getQuantity(), (order, value) -> item.setQuantity(value));
         layout.add(quantity);
 
         add(layout);
