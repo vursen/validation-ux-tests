@@ -119,7 +119,7 @@ public class CreateOrderView extends Div {
     }
 
     private void showNotification(String message, NotificationVariant variant) {
-        Notification notification = new Notification(message, 3000, Notification.Position.BOTTOM_END);
+        Notification notification = new Notification(message, 3000, Notification.Position.TOP_START);
         notification.addThemeVariants(variant);
         notification.open();
     }
