@@ -3,14 +3,19 @@ package com.example.application.components;
 import com.example.application.data.OrderItem;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.html.Hr;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class ItemList extends VerticalLayout {
     public ItemList(OrderItem[] items) {
         for (OrderItem item : items) {
             addItem(item);
+            add(new Hr());
         }
 
         setAlignItems(Alignment.STRETCH);
@@ -31,11 +36,19 @@ public class ItemList extends VerticalLayout {
         layout.add(title);
         layout.setFlexGrow(1, title);
 
-        Div price = new Div(new Text(item.getPrice().toString() + "$"));
+        NumberField price = new NumberField("Price");
+        price.setValue(item.getPrice());
+        price.setMin(1);
+        price.setPrefixComponent(new Div(new Text("€")));
+        price.addClassNames(LumoUtility.Padding.Top.NONE);
         layout.add(price);
-        layout.setFlexGrow(1, price);
 
-        Div quantity = new Div(new Text(item.getQuantity().toString() + "kpl"));
+        IntegerField quantity = new IntegerField("Quantity");
+        quantity.setValue(item.getQuantity());
+        quantity.setStepButtonsVisible(true);
+        quantity.setMin(1);
+        quantity.setWidth("112px");
+        quantity.addClassNames(LumoUtility.Padding.Top.NONE);
         layout.add(quantity);
 
         add(layout);
