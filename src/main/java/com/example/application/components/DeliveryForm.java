@@ -2,6 +2,7 @@ package com.example.application.components;
 
 import java.util.List;
 
+import com.example.application.data.Order.Delivery;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
@@ -9,12 +10,12 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class DeliveryForm extends BasicForm {
-    public DeliveryForm() {
-        RadioButtonGroup<String> type = new RadioButtonGroup<>("Type");
-        type.setItems("Posti", "UPS");
-        type.setRequiredIndicatorVisible(true);
-        fields.add(type);
-        add(type);
+    public DeliveryForm(Delivery delivery) {
+        RadioButtonGroup<String> method = new RadioButtonGroup<>("Method");
+        method.setItems("Posti", "UPS");
+        method.setRequiredIndicatorVisible(true);
+        fields.add(method);
+        add(method);
 
         ComboBox<String> city = new ComboBox<>("City");
         city.setItems(List.of("Helsinki", "Turku", "Tampere"));

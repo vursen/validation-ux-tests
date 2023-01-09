@@ -2,13 +2,14 @@ package com.example.application.components;
 
 import java.time.LocalDate;
 
+import com.example.application.data.Order.User;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class UserForm extends BasicForm {
-    public UserForm() {
+    public UserForm(User user) {
         TextField firstName = new TextField("First name");
         firstName.setRequiredIndicatorVisible(true);
         firstName.setMinLength(2);
