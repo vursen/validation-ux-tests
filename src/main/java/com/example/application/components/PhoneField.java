@@ -26,10 +26,13 @@ public class PhoneField extends CustomField<String> {
         codeField = new Select<>();
         codeField.setItems(COUNTRY_CODES);
         codeField.setWidth("25%");
+        codeField.setPlaceholder("Code");
         layout.add(codeField);
 
         numberField = new TextField();
         numberField.setWidth("75%");
+        numberField.setPattern("[\\d]+");
+        numberField.setHelperText("Enter your phone number in digits");
         layout.add(numberField);
 
         add(layout);

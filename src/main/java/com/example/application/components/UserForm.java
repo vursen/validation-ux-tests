@@ -2,14 +2,14 @@ package com.example.application.components;
 
 import java.time.LocalDate;
 
-import com.example.application.data.Order.User;
+import com.example.application.data.OrderUser;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class UserForm extends BasicForm {
-    public UserForm(User user) {
+    public UserForm(OrderUser user) {
         TextField firstName = new TextField("First name");
         firstName.setRequiredIndicatorVisible(true);
         firstName.setMinLength(2);
@@ -36,7 +36,7 @@ public class UserForm extends BasicForm {
         PasswordField password = new PasswordField("Password");
         password.setRequiredIndicatorVisible(true);
         password.setPattern("[A-Za-z0-9]+");
-        password.setHelperText("Must only consist of digits and letters");
+        password.setHelperText("Create a password using digits and letters");
         fields.add(password);
         add(password);
 

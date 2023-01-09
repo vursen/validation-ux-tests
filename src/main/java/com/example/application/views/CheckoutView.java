@@ -1,11 +1,16 @@
 package com.example.application.views;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import com.example.application.components.DeliveryForm;
+import com.example.application.components.ItemList;
 import com.example.application.components.UserForm;
 import com.example.application.data.Order;
+import com.example.application.data.OrderDelivery;
+import com.example.application.data.OrderItem;
+import com.example.application.data.OrderUser;
 import com.vaadin.flow.component.HasLabel;
 import com.vaadin.flow.component.HasValueAndElement;
 import com.vaadin.flow.component.button.Button;
@@ -14,7 +19,6 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
-import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -22,7 +26,16 @@ import com.vaadin.flow.theme.lumo.LumoUtility;
 @Route(value = "checkout")
 @PageTitle(value = "Checkout")
 public class CheckoutView extends Div {
-    private Order order = new Order();
+    // TODO: Consider using the builder pattern.
+    private Order order = new Order(
+            new OrderUser(),
+            new OrderDelivery(),
+            new OrderItem(
+                    "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/now/now00373/y/26.jpg",
+                    "NOW Foods, Vitamin D-3, 125 mcg (5,000 IU), 240 Softgels", Double.valueOf(15), 2),
+            new OrderItem(
+                    "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/now/now00680/y/25.jpg",
+                    "NOW Foods, C-1000, 100 Tablets", Double.valueOf(10), 5));
 
     private Button submit;
 
@@ -31,8 +44,6 @@ public class CheckoutView extends Div {
     private DeliveryForm deliveryForm;
 
     public CheckoutView() {
-        addClassNames(LumoUtility.Padding.XLARGE, LumoUtility.MaxWidth.SCREEN_MEDIUM);
-
         H1 h1 = new H1("Checkout");
         h1.addClassNames(LumoUtility.Margin.Top.NONE);
         add(h1);
@@ -44,6 +55,8 @@ public class CheckoutView extends Div {
         addDeliveryForm();
 
         addSubmit();
+
+        addClassNames(LumoUtility.Padding.XLARGE, LumoUtility.MaxWidth.SCREEN_MEDIUM);
     }
 
     private void addSubmit() {
@@ -59,7 +72,7 @@ public class CheckoutView extends Div {
     }
 
     private void addItemList() {
-        add(new H2("Items"), new VerticalLayout());
+        add(new H2("Items"), new ItemList(order.getItems()));
     }
 
     private void addDeliveryForm() {
