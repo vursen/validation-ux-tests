@@ -46,7 +46,8 @@ public class CreateOrderView extends Div {
     private DeliveryForm deliveryForm;
 
     public CreateOrderView() {
-        binder = new Binder<>();
+        binder = new Binder<>(Order.class);
+        binder.setBean(order);
 
         H1 h1 = new H1("Create Order");
         h1.addClassNames(LumoUtility.Margin.Top.NONE);
@@ -71,16 +72,16 @@ public class CreateOrderView extends Div {
     }
 
     private void addUserForm() {
-        userForm = new UserForm(order.getUser());
+        userForm = new UserForm(binder, order.getUser());
         add(new H2("User"), userForm);
     }
 
     private void addItemList() {
-        add(new H2("Items"), new ItemList(order.getItems()));
+        add(new H2("Items"), new ItemList());
     }
 
     private void addDeliveryForm() {
-        deliveryForm = new DeliveryForm(order.getDelivery());
+        deliveryForm = new DeliveryForm(binder);
         add(new H2("Delivery"), deliveryForm);
     }
 

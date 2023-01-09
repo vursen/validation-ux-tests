@@ -3,7 +3,7 @@ package com.example.application.data;
 import java.time.LocalDate;
 
 public class OrderUser {
-    private String title;
+    private String gender;
     private String firstName;
     private String lastName;
     private String email;
@@ -11,12 +11,12 @@ public class OrderUser {
     private String password;
     private LocalDate birthday;
 
-    public String getTitle() {
-        return this.title;
+    public String getGender() {
+        return this.gender;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getFirstName() {

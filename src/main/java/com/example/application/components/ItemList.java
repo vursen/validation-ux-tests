@@ -1,5 +1,6 @@
 package com.example.application.components;
 
+import com.example.application.data.Order;
 import com.example.application.data.OrderItem;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.html.Div;
@@ -9,17 +10,18 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class ItemList extends VerticalLayout {
-    public ItemList(OrderItem[] items) {
-        for (OrderItem item : items) {
-            addItem(item);
-            add(new Hr());
-        }
+    public ItemList() {
+        // for (OrderItem item : binder.getBean().getItems()) {
+        //     addItem(item);
+        //     add(new Hr());
+        // }
 
-        setAlignItems(Alignment.STRETCH);
-        setPadding(false);
+        // setAlignItems(Alignment.STRETCH);
+        // setPadding(false);
     }
 
     private void addItem(OrderItem item) {
