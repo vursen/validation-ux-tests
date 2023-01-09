@@ -1,6 +1,5 @@
 package com.example.application.views;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -23,9 +22,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
-@Route(value = "checkout")
-@PageTitle(value = "Checkout")
-public class CheckoutView extends Div {
+@Route(value = "create-order")
+@PageTitle(value = "Create order")
+public class CreateOrderView extends Div {
     // TODO: Consider using the builder pattern.
     private Order order = new Order(
             new OrderUser(),
@@ -43,8 +42,8 @@ public class CheckoutView extends Div {
 
     private DeliveryForm deliveryForm;
 
-    public CheckoutView() {
-        H1 h1 = new H1("Checkout");
+    public CreateOrderView() {
+        H1 h1 = new H1("Create Order");
         h1.addClassNames(LumoUtility.Margin.Top.NONE);
         add(h1);
 
@@ -60,7 +59,7 @@ public class CheckoutView extends Div {
     }
 
     private void addSubmit() {
-        submit = new Button("Order");
+        submit = new Button("Create");
         submit.addClassNames(LumoUtility.Margin.Top.LARGE);
         submit.addClickListener((event) -> onSubmit());
         add(submit);
