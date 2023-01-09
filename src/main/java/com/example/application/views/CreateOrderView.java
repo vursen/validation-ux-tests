@@ -100,7 +100,7 @@ public class CreateOrderView extends Div {
         Optional<HasValueAndElement<?, ?>> emptyRequiredField = getEmptyRequiredFields().findFirst();
         if (emptyRequiredField.isPresent()) {
             showNotification(
-                    String.format("The \"%s\" field has an invalid value.",
+                    String.format("The \"%s\" field is required.",
                             ((HasLabel) emptyRequiredField.get()).getLabel()),
                     NotificationVariant.LUMO_ERROR);
             return;
