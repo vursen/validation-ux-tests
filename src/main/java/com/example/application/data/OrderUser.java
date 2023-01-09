@@ -3,12 +3,21 @@ package com.example.application.data;
 import java.time.LocalDate;
 
 public class OrderUser {
+    private String title;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
     private String password;
     private LocalDate birthday;
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public String getFirstName() {
         return this.firstName;

@@ -12,7 +12,7 @@ import com.vaadin.flow.component.textfield.TextField;
 public class DeliveryForm extends BasicForm {
     public DeliveryForm(OrderDelivery delivery) {
         RadioButtonGroup<String> method = new RadioButtonGroup<>("Method");
-        method.setItems("Posti", "UPS");
+        method.setItems("Posti", "UPS", "Home");
         method.setRequiredIndicatorVisible(true);
         fields.add(method);
         add(method);
@@ -29,7 +29,7 @@ public class DeliveryForm extends BasicForm {
         fields.add(address);
         add(address);
 
-        DateTimePicker dateTime = new DateTimePicker("Date and time");
+        DateTimePicker dateTime = new DateTimePicker("Suitable date and time");
         dateTime.setRequiredIndicatorVisible(true);
         fields.add(dateTime);
         add(dateTime);

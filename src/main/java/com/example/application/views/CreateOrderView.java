@@ -18,6 +18,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.theme.lumo.LumoUtility;
@@ -36,6 +37,8 @@ public class CreateOrderView extends Div {
                     "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/now/now00680/y/25.jpg",
                     "NOW Foods, C-1000, 100 Tablets", Double.valueOf(10), 5));
 
+    private Binder<Order> binder;
+
     private Button submit;
 
     private UserForm userForm;
@@ -43,6 +46,8 @@ public class CreateOrderView extends Div {
     private DeliveryForm deliveryForm;
 
     public CreateOrderView() {
+        binder = new Binder<>();
+
         H1 h1 = new H1("Create Order");
         h1.addClassNames(LumoUtility.Margin.Top.NONE);
         add(h1);
