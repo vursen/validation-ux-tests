@@ -40,12 +40,6 @@ public class CreateOrderView extends Div {
 
     private Binder<Order> binder;
 
-    private Button submit;
-
-    private UserForm userForm;
-
-    private DeliveryForm deliveryForm;
-
     public CreateOrderView() {
         binder = new Binder<>(Order.class);
         binder.setBean(order);
@@ -66,15 +60,17 @@ public class CreateOrderView extends Div {
     }
 
     private void addSubmit() {
-        submit = new Button("Create");
+        Button submit = new Button("Create");
         submit.addClassNames(LumoUtility.Margin.Top.LARGE);
         submit.addClickListener((event) -> onSubmit());
+        binder.addStatusChangeListener(event -> {
+            submit.setEnabled(!event.hasValidationErrors());
+        });
         add(submit);
     }
 
     private void addUserForm() {
-        userForm = new UserForm(binder);
-        add(new H2("User"), userForm);
+        add(new H2("User"), new UserForm(binder));
     }
 
     private void addItemList() {
@@ -82,42 +78,45 @@ public class CreateOrderView extends Div {
     }
 
     private void addDeliveryForm() {
-        deliveryForm = new DeliveryForm(binder);
-        add(new H2("Delivery"), deliveryForm);
+        add(new H2("Delivery"), new DeliveryForm(binder));
     }
 
-    private Stream<HasValueAndElement<?, ?>> getEmptyRequiredFields() {
-        return Stream.concat(
-                deliveryForm.getEmptyRequiredFields(),
-                userForm.getEmptyRequiredFields());
-    }
+    // private Stream<HasValueAndElement<?, ?>> getEmptyRequiredFields() {
+    //     return Stream.concat(
+    //             deliveryForm.getEmptyRequiredFields(),
+    //             userForm.getEmptyRequiredFields());
+    // }
 
-    private Stream<HasValueAndElement<?, ?>> getInvalidFields() {
-        return Stream.concat(
-                deliveryForm.getInvalidFields(),
-                userForm.getInvalidFields());
-    }
+    // private Stream<HasValueAndElement<?, ?>> getInvalidFields() {
+    //     return Stream.concat(
+    //             deliveryForm.getInvalidFields(),
+    //             userForm.getInvalidFields());
+    // }
 
     private void onSubmit() {
-        Optional<HasValueAndElement<?, ?>> emptyRequiredField = getEmptyRequiredFields().findFirst();
-        if (emptyRequiredField.isPresent()) {
-            showNotification(
-                    String.format("The \"%s\" field is required.",
-                            ((HasLabel) emptyRequiredField.get()).getLabel()),
-                    NotificationVariant.LUMO_ERROR);
-            return;
-        }
+        // Optional<HasValueAndElement<?, ?>> emptyRequiredField = getEmptyRequiredFields().findFirst();
+        // if (emptyRequiredField.isPresent()) {
+        //     showNotification(
+        //             String.format("The \"%s\" field is required.",
+        //                     ((HasLabel) emptyRequiredField.get()).getLabel()),
+        //             NotificationVariant.LUMO_ERROR);
+        //     return;
+        // }
 
-        Optional<HasValueAndElement<?, ?>> invalidField = getInvalidFields().findFirst();
-        if (invalidField.isPresent()) {
-            showNotification(
-                    String.format("The \"%s\" field has an invalid value.",
-                            ((HasLabel) invalidField.get()).getLabel()),
-                    NotificationVariant.LUMO_ERROR);
-            return;
-        }
+        // Optional<HasValueAndElement<?, ?>> invalidField = getInvalidFields().findFirst();
+        // if (invalidField.isPresent()) {
+        //     showNotification(
+        //             String.format("The \"%s\" field has an invalid value.",
+        //                     ((HasLabel) invalidField.get()).getLabel()),
+        //             NotificationVariant.LUMO_ERROR);
+        //     return;
+        // }
 
-        showNotification("The order #1234 is successfully created.", NotificationVariant.LUMO_SUCCESS);
+        if (binder.writeBeanIfValid(order)) {
+            showNotification("The order #1234 is successfully created.", NotificationVariant.LUMO_SUCCESS);
+        } else {
+            showNotification("Please, fill out the required fields before submission.", NotificationVariant.LUMO_ERROR);
+        }
     }
 
     private void showNotification(String message, NotificationVariant variant) {

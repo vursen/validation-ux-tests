@@ -7,13 +7,18 @@ import java.util.regex.Matcher;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
+import com.vaadin.flow.component.shared.HasClientValidation;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.HasValidator;
+import com.vaadin.flow.data.binder.ValidationStatusChangeEvent;
+import com.vaadin.flow.data.binder.ValidationStatusChangeListener;
+import com.vaadin.flow.shared.Registration;
 
-public class PhoneField extends CustomField<String> {
+public class PhoneField extends CustomField<String> implements HasValidator<String>, HasClientValidation {
     private Select<String> codeField;
     private TextField numberField;
 
-    private List<String> COUNTRY_CODES = List.of("+358", "+1");
+    private List<String> COUNTRY_CODES = List.of("+358", "+49", "+1");
 
     public PhoneField(String label) {
         this();
@@ -31,11 +36,42 @@ public class PhoneField extends CustomField<String> {
 
         numberField = new TextField();
         numberField.setWidth("75%");
-        numberField.setPattern("[\\d]+");
         layout.add(numberField);
 
         add(layout);
     }
+
+    @Override
+    public Registration addValidationStatusChangeListener(
+            ValidationStatusChangeListener<String> listener) {
+        return addClientValidatedEventListener(
+                event -> listener.validationStatusChanged(
+                        new ValidationStatusChangeEvent<String>(this,
+                                !isInvalid())));
+    }
+
+    // public Validator<String> getDefaultValidator() {
+    //     return (value, context) -> {
+    //         if (
+    //             Objects.equals(codeField.getValue(), codeField.getEmptyValue()) &&
+    //             Objects.equals(numberField.getValue(), numberField.getEmptyValue())
+    //         ) {
+    //             return ValidationResult.ok();
+    //         }
+
+    //         if (Objects.equals(codeField.getValue(), codeField.getEmptyValue())) {
+    //             return ValidationResult.error("The country code is required");
+    //         }
+
+    //         Pattern numberPattern = Pattern.compile("$\\d+^");
+    //         Matcher numberMatcher = numberPattern.matcher(numberField.getValue());
+    //         if (!numberMatcher.matches()) {
+    //             return ValidationResult.error("The number must consist of digits");
+    //         }
+
+    //         return ValidationResult.ok();
+    //     };
+    // }
 
     @Override
     protected String generateModelValue() {
