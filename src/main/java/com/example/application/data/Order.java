@@ -4,11 +4,13 @@ public class Order {
     private OrderUser user;
     private OrderItem[] items;
     private OrderDelivery delivery;
+    private OrderConfirmation confirmation;
 
-    public Order(OrderUser user, OrderDelivery delivery, OrderItem... items) {
+    public Order(OrderUser user, OrderDelivery delivery, OrderConfirmation confirmation, OrderItem... items) {
         this.user = user;
         this.items = items;
         this.delivery = delivery;
+        this.confirmation = confirmation;
     }
 
     public OrderUser getUser() {
@@ -33,5 +35,13 @@ public class Order {
 
     public void setDelivery(OrderDelivery delivery) {
         this.delivery = delivery;
+    }
+
+    public OrderConfirmation getConfirmation() {
+        return this.confirmation;
+    }
+
+    public void setConfirmation(OrderConfirmation confirmation) {
+        this.confirmation = confirmation;
     }
 }
