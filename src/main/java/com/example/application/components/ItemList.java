@@ -49,6 +49,7 @@ public class ItemList extends VerticalLayout {
         price.addClassNames(LumoUtility.Padding.Top.NONE);
         binder.forField(price)
                 .asRequired()
+                .withValidator(value -> value <= 100, "Max: 100€")
                 .bind(order -> item.getPrice(), (order, value) -> item.setPrice(value));
         layout.add(price);
 
@@ -60,7 +61,7 @@ public class ItemList extends VerticalLayout {
         quantity.addClassNames(LumoUtility.Padding.Top.NONE);
         binder.forField(quantity)
                 .asRequired()
-                .withValidator(value -> value < 10, "Max: 10 klp")
+                .withValidator(value -> value <= 10, "Max: 10 klp")
                 .bind(order -> item.getQuantity(), (order, value) -> item.setQuantity(value));
         layout.add(quantity);
 
