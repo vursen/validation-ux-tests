@@ -4,13 +4,14 @@ import java.time.LocalDate;
 
 import com.example.application.data.Order;
 import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
-public class UserForm extends BasicForm {
+public class UserForm extends FormLayout {
     public UserForm(Binder<Order> binder) {
         Select<String> gender = new Select<>();
         gender.setLabel("Gender");

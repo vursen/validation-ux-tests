@@ -6,13 +6,14 @@ import java.util.List;
 import com.example.application.data.Order;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.radiobutton.RadioButtonGroup;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
-public class DeliveryForm extends BasicForm {
+public class DeliveryForm extends FormLayout {
     private Binder<Order> binder;
     private RadioButtonGroup<String> method;
     private ComboBox<String> city;

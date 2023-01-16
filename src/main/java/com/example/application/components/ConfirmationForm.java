@@ -4,11 +4,12 @@ import java.util.Objects;
 
 import com.example.application.data.Order;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationResult;
 
-public class ConfirmationForm extends BasicForm {
+public class ConfirmationForm extends FormLayout {
     private CheckboxGroup<String> methods;
     private TimePicker time;
 
