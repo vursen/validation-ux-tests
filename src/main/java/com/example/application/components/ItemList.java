@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.theme.lumo.LumoUtility;
 
 public class ItemList extends VerticalLayout {
@@ -38,20 +39,27 @@ public class ItemList extends VerticalLayout {
         layout.setFlexGrow(0, image);
 
         Div title = new Div(new Text(item.getTitle()));
-        title.setWidth("50%");
+        title.setWidth("40%");
         layout.add(title);
         layout.setFlexGrow(1, title);
 
-        NumberField price = new NumberField("Price");
-        price.setValue(item.getPrice());
-        price.setMin(1);
-        price.setPrefixComponent(new Div(new Text("€")));
-        price.addClassNames(LumoUtility.Padding.Top.NONE);
-        binder.forField(price)
-                .asRequired()
-                .withValidator(value -> value <= 100, "Max: 100€")
-                .bind(order -> item.getPrice(), (order, value) -> item.setPrice(value));
+        Div price = new Div(new Text(item.getPrice() + " €"));
+        price.addClassNames(LumoUtility.FontWeight.BOLD);
+        price.setWidth("10%");
         layout.add(price);
+        layout.setFlexGrow(1, price);
+
+        NumberField discount = new NumberField("Discount");
+        discount.setValue(item.getDiscount());
+        discount.setMin(0);
+        discount.setMax(100);
+        discount.setSuffixComponent(new Div(new Text("%")));
+        discount.addClassNames(LumoUtility.Padding.Top.NONE);
+        discount.setWidth("10%");
+        binder.forField(discount)
+                .withValidator((value) -> value <= 30, "Max: 30%")
+                .bind(order -> item.getDiscount(), (order, value) -> item.setDiscount(value));
+        layout.add(discount);
 
         IntegerField quantity = new IntegerField("Quantity");
         quantity.setValue(item.getQuantity());

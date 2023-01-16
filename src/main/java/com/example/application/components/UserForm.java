@@ -30,6 +30,7 @@ public class UserForm extends FormLayout {
         add(lastName);
 
         DatePicker birthday = new DatePicker("Birthday");
+        birthday.setMin(LocalDate.now().minusYears(100));
         birthday.setMax(LocalDate.now());
         binder.forField(birthday).asRequired("The field is required").bind("user.birthday");
         add(birthday);
