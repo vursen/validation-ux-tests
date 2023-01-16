@@ -1,6 +1,7 @@
 package com.example.application.components;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 import com.example.application.data.Order;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -10,13 +11,20 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationResult;
 
 public class UserForm extends FormLayout {
     public UserForm(Binder<Order> binder) {
         Select<String> gender = new Select<>();
         gender.setLabel("Gender");
         gender.setItems("", "Mr", "Mrs");
-        binder.forField(gender).asRequired("The field is required").bind("user.gender");
+        binder.forField(gender).asRequired((value, context) -> {
+            if (value == null || "".equals(value)) {
+                return ValidationResult.error("The field is required");
+            }
+
+            return ValidationResult.ok();
+        }).bind("user.gender");
         add(gender);
 
         TextField firstName = new TextField("First name");
@@ -35,15 +43,11 @@ public class UserForm extends FormLayout {
         binder.forField(birthday).asRequired("The field is required").bind("user.birthday");
         add(birthday);
 
-        // BirthdayField birthday = new BirthdayField("Birthday");
-        // binder.forField(birthday).asRequired("The field is required").bind("user.birthday");
-        // add(birthday);
-
         EmailField email = new EmailField("Email");
         binder
                 .forField(email)
                 .asRequired("The field is required")
-                .withValidator(value -> !value.equals("vinogradov@vaadin.com"),
+                .withValidator(value -> !"vinogradov@vaadin.com".equals(value),
                         "An account with this email already exists.")
                 .bind("user.birthday");
         add(email);
@@ -51,7 +55,14 @@ public class UserForm extends FormLayout {
         PhoneField phone = new PhoneField("Phone");
         phone.setHelperText("Select a country code and enter your number using digits");
         binder.forField(phone)
-                .asRequired("The field is required")
+                .withValidator(
+                        value -> value == null || value.getNumber() == null
+                                || value.getCode() != null,
+                        "The country code is required")
+                .withValidator(
+                        value -> value == null || value.getNumber() == null
+                                || Pattern.matches("^\\d+$", value.getNumber()),
+                        "The number should consist of digits")
                 .bind("user.phone");
         add(phone);
 

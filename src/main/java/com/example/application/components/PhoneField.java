@@ -1,20 +1,18 @@
 package com.example.application.components;
 
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
 
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.example.application.data.Phone;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
 import com.vaadin.flow.component.shared.HasClientValidation;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.HasValidator;
-import com.vaadin.flow.data.binder.ValidationStatusChangeEvent;
-import com.vaadin.flow.data.binder.ValidationStatusChangeListener;
-import com.vaadin.flow.shared.Registration;
 
-public class PhoneField extends CustomField<String> implements HasValidator<String>, HasClientValidation {
+public class PhoneField extends CustomField<Phone> implements HasValidator<String>, HasClientValidation {
     private Select<String> codeField;
     private TextField numberField;
 
@@ -42,57 +40,22 @@ public class PhoneField extends CustomField<String> implements HasValidator<Stri
     }
 
     @Override
-    public Registration addValidationStatusChangeListener(
-            ValidationStatusChangeListener<String> listener) {
-        return addClientValidatedEventListener(
-                event -> listener.validationStatusChanged(
-                        new ValidationStatusChangeEvent<String>(this,
-                                !isInvalid())));
-    }
-
-    // public Validator<String> getDefaultValidator() {
-    //     return (value, context) -> {
-    //         if (
-    //             Objects.equals(codeField.getValue(), codeField.getEmptyValue()) &&
-    //             Objects.equals(numberField.getValue(), numberField.getEmptyValue())
-    //         ) {
-    //             return ValidationResult.ok();
-    //         }
-
-    //         if (Objects.equals(codeField.getValue(), codeField.getEmptyValue())) {
-    //             return ValidationResult.error("The country code is required");
-    //         }
-
-    //         Pattern numberPattern = Pattern.compile("$\\d+^");
-    //         Matcher numberMatcher = numberPattern.matcher(numberField.getValue());
-    //         if (!numberMatcher.matches()) {
-    //             return ValidationResult.error("The number must consist of digits");
-    //         }
-
-    //         return ValidationResult.ok();
-    //     };
-    // }
-
-    @Override
-    protected String generateModelValue() {
+    protected Phone generateModelValue() {
         String code = codeField.getValue();
         String number = numberField.getValue();
 
-        if (code == null || number.isEmpty()) {
+        if (code == null && number.isEmpty()) {
             return null;
         }
 
-        return code + number;
+        return new Phone(code, number.isEmpty() ? null : number);
     }
 
     @Override
-    protected void setPresentationValue(String phone) {
-        Pattern phonePattern = Pattern.compile("^(" + String.join("|", COUNTRY_CODES) + ")(.+)$");
-        Matcher phoneMatcher = phonePattern.matcher(phone);
-
-        if (phoneMatcher.find()) {
-            codeField.setValue(phoneMatcher.group(1));
-            numberField.setValue(phoneMatcher.group(2));
+    protected void setPresentationValue(Phone phone) {
+        if (phone != null) {
+            codeField.setValue(phone.getCode());
+            numberField.setValue(phone.getNumber());
         }
     }
 }

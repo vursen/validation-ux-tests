@@ -7,7 +7,7 @@ public class OrderUser {
     private String firstName;
     private String lastName;
     private String email;
-    private String phone;
+    private Phone phone;
     private String password;
     private LocalDate birthday;
 
@@ -43,11 +43,11 @@ public class OrderUser {
         this.email = email;
     }
 
-    public String getPhone() {
+    public Phone getPhone() {
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(Phone phone) {
         this.phone = phone;
     }
 
