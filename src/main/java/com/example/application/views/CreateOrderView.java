@@ -29,7 +29,8 @@ public class CreateOrderView extends Div {
             new OrderConfirmation(),
             new OrderItem(
                     "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/now/now00373/y/26.jpg",
-                    "NOW Foods, Vitamin D-3, 125 mcg (5,000 IU), 240 Softgels", Double.valueOf(9.99), Double.valueOf(15), 2),
+                    "NOW Foods, Vitamin D-3, 125 mcg (5,000 IU), 240 Softgels", Double.valueOf(9.99),
+                    Double.valueOf(15), 2),
             new OrderItem(
                     "https://cloudinary.images-iherb.com/image/upload/f_auto,q_auto:eco/images/now/now00680/y/25.jpg",
                     "NOW Foods, C-1000, 100 Tablets", Double.valueOf(49.99), Double.valueOf(10), 5));
@@ -53,12 +54,16 @@ public class CreateOrderView extends Div {
         add(new H2("Delivery"));
         add(new DeliveryForm(binder));
 
-        add(new H2("Order Confirmation"));
+        add(new H2("Confirmation"));
         add(new ConfirmationForm(binder));
 
         addSubmit();
 
-        addClassNames(LumoUtility.Padding.XLARGE, LumoUtility.MaxWidth.SCREEN_MEDIUM);
+        addClassNames(
+            LumoUtility.Padding.XLARGE,
+            LumoUtility.MaxWidth.SCREEN_MEDIUM,
+            LumoUtility.Margin.Right.AUTO,
+            LumoUtility.Margin.Left.AUTO);
     }
 
     private void addSubmit() {
@@ -72,7 +77,8 @@ public class CreateOrderView extends Div {
         if (binder.writeBeanIfValid(order)) {
             showNotification("The order #1234 was successfully created.", NotificationVariant.LUMO_SUCCESS);
         } else {
-            showNotification("Please correct the errors highlighted in the form and try again.", NotificationVariant.LUMO_ERROR);
+            showNotification("Please correct the errors highlighted in the form and try again.",
+                    NotificationVariant.LUMO_ERROR);
         }
     }
 

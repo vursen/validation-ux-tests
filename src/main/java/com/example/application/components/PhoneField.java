@@ -2,8 +2,6 @@ package com.example.application.components;
 
 import java.util.List;
 
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.example.application.data.Phone;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
