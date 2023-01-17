@@ -69,7 +69,7 @@ public class ItemList extends VerticalLayout {
         quantity.addClassNames(LumoUtility.Padding.Top.NONE);
         binder.forField(quantity)
                 .asRequired()
-                .withValidator(value -> value <= 10, "Max: 10 klp")
+                .withValidator(value -> value <= 10, "Max: 10 kpl")
                 .bind(order -> item.getQuantity(), (order, value) -> item.setQuantity(value));
         layout.add(quantity);
 
