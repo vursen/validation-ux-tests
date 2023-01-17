@@ -1,39 +1,36 @@
 package com.example.application.components;
 
 import java.time.LocalTime;
-import java.util.Objects;
 
 import com.example.application.data.Order;
 import com.vaadin.flow.component.checkbox.CheckboxGroup;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.timepicker.TimePicker;
 import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationResult;
+import com.vaadin.flow.data.binder.Binder.Binding;
 
 public class ConfirmationForm extends FormLayout {
     private CheckboxGroup<String> methods;
     private TimePicker time;
+    private Binding<Order, LocalTime> timeBinding;
 
     public ConfirmationForm(Binder<Order> binder) {
         methods = new CheckboxGroup<>("Method");
         methods.setItems("By SMS", "By phone");
         methods.addValueChangeListener(event -> {
-            time.setVisible(event.getValue().contains("By phone"));
+            boolean isTimeVisible = event.getValue().contains("By phone");
+            time.setVisible(isTimeVisible);
+            timeBinding.setValidatorsDisabled(!isTimeVisible);
         });
         binder.forField(methods).asRequired("The field is required").bind("confirmation.methods");
         add(methods);
 
         time = new TimePicker("When would you prefer us to call you?");
-        time.setVisible(false);
         time.setMin(LocalTime.of(9, 00));
         time.setMax(LocalTime.of(16, 00));
-        binder.forField(time).asRequired((value, context) -> {
-            if (methods.getValue().contains("By phone") && Objects.equals(value, time.getEmptyValue())) {
-                return ValidationResult.error("The field is required");
-            }
-
-            return ValidationResult.ok();
-        }).bind("confirmation.time");
+        time.setVisible(false);
+        timeBinding = binder.forField(time).asRequired("The field is required").bind("confirmation.time");
+        timeBinding.setValidatorsDisabled(true);
         add(time);
     }
 }
