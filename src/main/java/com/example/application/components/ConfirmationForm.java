@@ -1,5 +1,6 @@
 package com.example.application.components;
 
+import java.time.LocalTime;
 import java.util.Objects;
 
 import com.example.application.data.Order;
@@ -24,6 +25,8 @@ public class ConfirmationForm extends FormLayout {
 
         time = new TimePicker("When would you prefer us to call you?");
         time.setVisible(false);
+        time.setMin(LocalTime.of(9, 00));
+        time.setMax(LocalTime.of(16, 00));
         binder.forField(time).asRequired((value, context) -> {
             if (methods.getValue().contains("By phone") && Objects.equals(value, time.getEmptyValue())) {
                 return ValidationResult.error("The field is required");

@@ -33,7 +33,6 @@ public class UserForm extends FormLayout {
         add(firstName);
 
         TextField lastName = new TextField("Last name");
-        lastName.setMinLength(2);
         binder.forField(lastName).asRequired("The field is required").bind("user.lastName");
         add(lastName);
 
@@ -53,7 +52,7 @@ public class UserForm extends FormLayout {
         add(email);
 
         PhoneField phone = new PhoneField("Phone");
-        phone.setHelperText("Select a country code and enter your number using digits");
+        phone.setHelperText("Select a country code and enter a number using digits");
         binder.forField(phone)
                 .withValidator(
                         value -> value == null || value.getNumber() == null
@@ -68,7 +67,8 @@ public class UserForm extends FormLayout {
 
         PasswordField password = new PasswordField("Password");
         password.setPattern("[A-Za-z0-9]+");
-        password.setHelperText("Create a password using digits and letters");
+        password.setMinLength(6);
+        password.setHelperText("Must have at least 6 characters. Allowed: digits, letters");
         binder.forField(password).asRequired("The field is required").bind("user.password");
         add(password);
     }
