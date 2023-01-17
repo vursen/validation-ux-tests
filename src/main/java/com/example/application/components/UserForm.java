@@ -49,7 +49,7 @@ public class UserForm extends FormLayout {
                 .asRequired("The field is required")
                 .withValidator(value -> !"vinogradov@vaadin.com".equals(value),
                         "An account with this email already exists.")
-                .bind("user.birthday");
+                .bind("user.email");
         add(email);
 
         PhoneField phone = new PhoneField("Phone");
