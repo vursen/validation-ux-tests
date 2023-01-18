@@ -14,7 +14,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.value.ValueChangeMode;
 
 public class DeliveryForm extends FormLayout {
-    private Binder<Order> binder;
+    private final Binder<Order> binder;
     private RadioButtonGroup<String> method;
     private ComboBox<String> city;
     private TextField address;

@@ -56,6 +56,7 @@ public class ItemList extends VerticalLayout {
         discount.addClassNames(LumoUtility.Padding.Top.NONE);
         discount.setWidth("10%");
         binder.forField(discount)
+                .asRequired()
                 .withValidator((value) -> value == null || value <= 30, "Max: 30%")
                 .bind(order -> item.getDiscount(), (order, value) -> item.setDiscount(value));
         layout.add(discount);

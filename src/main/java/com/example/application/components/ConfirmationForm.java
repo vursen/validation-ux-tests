@@ -10,11 +10,19 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.Binder.Binding;
 
 public class ConfirmationForm extends FormLayout {
+    private final Binder<Order> binder;
     private CheckboxGroup<String> methods;
     private TimePicker time;
     private Binding<Order, LocalTime> timeBinding;
 
     public ConfirmationForm(Binder<Order> binder) {
+        this.binder = binder;
+
+        addMethodsField();
+        addTimeField();
+    }
+
+    private void addMethodsField() {
         methods = new CheckboxGroup<>("Method");
         methods.setItems("By SMS", "By phone");
         methods.addValueChangeListener(event -> {
@@ -24,7 +32,9 @@ public class ConfirmationForm extends FormLayout {
         });
         binder.forField(methods).asRequired("The field is required").bind("confirmation.methods");
         add(methods);
+    }
 
+    private void addTimeField() {
         time = new TimePicker("When would you prefer us to call you?");
         time.setMin(LocalTime.of(9, 00));
         time.setMax(LocalTime.of(16, 00));
