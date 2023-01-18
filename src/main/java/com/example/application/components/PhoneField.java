@@ -6,11 +6,9 @@ import com.example.application.data.Phone;
 import com.vaadin.flow.component.customfield.CustomField;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.select.Select;
-import com.vaadin.flow.component.shared.HasClientValidation;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.HasValidator;
 
-public class PhoneField extends CustomField<Phone> implements HasValidator<String>, HasClientValidation {
+public class PhoneField extends CustomField<Phone> {
     private Select<String> codeField;
     private TextField numberField;
 
